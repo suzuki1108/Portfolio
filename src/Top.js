@@ -1,5 +1,5 @@
 import React from 'react';
-import {useState} from 'react';
+import {useState,useEffect} from 'react';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -111,6 +111,12 @@ export default function Top() {
 
   const [modalFlg,setModalFlg] = useState('');
 
+  const [windowSize, setWindowSize] = useState(0);
+
+  useEffect(()=>{
+    setWindowSize(window.innerWidth);
+  },[])
+
 
   const cards = [{
     title:'格言Bot',
@@ -218,7 +224,7 @@ export default function Top() {
         <a name="Contact">CONTACT</a>
       </Typography>
       <Typography align="center">
-        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfXbUZ2kS_LGkeZfvKusaRnIvmScwrV9vmx8HPon1bFdDycVA/viewform?embedded=true" width="640" height="800" frameborder="0" marginheight="0" marginwidth="0">読み込んでいます…</iframe>
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfXbUZ2kS_LGkeZfvKusaRnIvmScwrV9vmx8HPon1bFdDycVA/viewform?embedded=true" width={windowSize} height="800" frameborder="0" marginheight="0" marginwidth="0">読み込んでいます…</iframe>
       </Typography>
       </main>
       <footer className={classes.footer}>
