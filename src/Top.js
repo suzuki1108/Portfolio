@@ -15,12 +15,15 @@ import Backdrop from '@material-ui/core/Backdrop';
 import { useSpring, animated } from 'react-spring/web.cjs';
 import Link from '@material-ui/core/Link';
 import top from './top.jpeg';
-import Line from './Line.png';
-import Java from './Java.png';
 import Spring from './Spring.png';
 import GAS from './GAS.png';
 import ReactImg from './React.png';
+import Gold from './Gold.gif';
+import Silver from './Silver.gif';
 import ButtonAppBar from './Header';
+import Avatar from '@material-ui/core/Avatar';
+import Rating from '@material-ui/lab/Rating';
+import Box from '@material-ui/core/Box';
 
 
 function Copyright() {
@@ -81,6 +84,19 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },
+  profileContent:{
+    display: 'flex',
+    justifyContent: 'center',
+    padding: theme.spacing(2, 4, 3),
+  },
+  profileImage: {
+    width: theme.spacing(20),
+    height: theme.spacing(20),
+  },
+  profileText:{
+    textAlign:'center',
+    paddingTop: '1.5%',
+  },
 }));
 
 const Fade = React.forwardRef(function Fade(props, ref) {
@@ -117,6 +133,12 @@ export default function Top() {
     setWindowSize(window.innerWidth);
   },[])
 
+  useEffect(()=>{
+   window.addEventListener("resize",()=>{
+     setWindowSize(window.innerWidth);
+   }) 
+  });
+
 
   const cards = [{
     title:'格言Bot',
@@ -138,6 +160,38 @@ export default function Top() {
     techs:['SpringBoot','JPARepository','ThymeLeaf','PostgreSQL','楽天BooksAPI','heroku']
   }];
 
+  const skils = [
+    {title:"Java",rate:4},
+    {title:"C#",rate:3},
+    {title:"HTML",rate:3},
+    {title:"CSS",rate:2},
+    {title:"JavaScript",rate:3},
+    {title:"Google Apps Script",rate:3},
+    {title:"Node.js",rate:3},
+    {title:"React",rate:4},
+    {title:"React Material-UI",rate:3},
+    {title:"Spring",rate:3},
+    {title:"ASP.net",rate:3},
+    {title:"OracleSQL",rate:4},
+    {title:"PostgreSQL",rate:2},
+    {title:"SQLServer",rate:2},
+    {title:"Git",rate:3},
+    {title:"SVN",rate:4}
+  ]
+
+  const cert = [
+    {
+      title:"JavaGold SE8",
+      image:Gold,
+      date:"2020-06"
+    },
+    {
+      title:"JavaSilver SE8",
+      image:Silver,
+      date:"2020-05"
+    }
+  ];
+
   return (
     <React.Fragment>
       <ButtonAppBar />
@@ -156,6 +210,15 @@ export default function Top() {
         <Typography variant="h3" align="left">
             <a name="Profile">PROFILE</a>
         </Typography>
+        <div className={classes.profileContent}>
+          <Avatar alt="R" src="https://avatars.githubusercontent.com/u/66355316?s=460&u=86ab7866746ceee42478c65e9b475789286be02b&v=4" className={classes.profileImage} /> 
+          <div className={classes.profileText}>
+            <p>北海道札幌市在住、平成5年生まれのWebエンジニア、Suzukiと申します。<br/>
+            以前は営業職に携わっており、業務効率改善のため、簡易的なシステムを作成したことから<br/>
+            IT業界に興味を持ち、2020年4月からはIT業界に転職し現在も従事しております。<br/>
+            趣味は学習を兼ねた個人開発で、日々技術向上に向け邁進しております。</p>
+          </div>
+        </div>
         <Typography variant="h3" align="left">
             <a name="Works">WORKS</a>
         </Typography>
@@ -217,9 +280,48 @@ export default function Top() {
         <Typography variant="h3" align="left">
             <a name="Skills">SKILLS</a>
         </Typography>
+        <Container className={classes.cardGrid} maxWidth="md">
+          <Grid container spacing={4}>
+              {skils.map((skil)=>(
+              <Grid item key={1} xs={12} sm={6} md={4}>
+                <Card className={classes.card}>
+                  <CardContent className={classes.cardContent}>
+                    <Box component="fieldset" mb={3} borderColor="transparent">
+                      <Typography component="legend">{skil.title}</Typography>
+                      <Rating value={skil.rate} readOnly />
+                    </Box>
+                  </CardContent>
+                </Card> 
+              </Grid>
+              ))}
+          </Grid>
+        </Container>
+
         <Typography variant="h3" align="left">
           <a name="Certificate">CERTIFICATE</a>
         </Typography>
+        <Container className={classes.cardGrid} maxWidth="md">
+          <Grid container spacing={4}>
+              {cert.map((cert)=>(
+              <Grid item key={1} xs={6} sm={6} md={4}>
+                <Card className={classes.card}>
+                  <CardMedia
+                    className={classes.cardMedia}
+                    image={cert.image}
+                  />
+                  <CardContent className={classes.cardContent}>
+                    <Typography gutterBottom variant="h6" component="h2">
+                      {cert.title}
+                    </Typography>
+                    <Typography>
+                      {cert.date}
+                    </Typography>
+                  </CardContent>
+                </Card> 
+              </Grid>
+              ))}
+          </Grid>
+        </Container>
       <Typography variant="h3" align="left">
         <a name="Contact">CONTACT</a>
       </Typography>
